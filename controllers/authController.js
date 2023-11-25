@@ -94,5 +94,19 @@ const login = async (req, res, next) => {
         });
 }
 
+const getUsers = async (req, res) => {
+    try {
+        const users = await User.find({})
 
-module.exports = { signup, login }
+        if (!users) {
+            return res.status(400).json({ msg: 'No user found' })
+        }
+
+        return res.status(200).json(users)
+    } catch (error) {
+        return res.status(400).json({ msg: 'Server Error' })
+    }
+}
+
+
+module.exports = { signup, login, getUsers }
